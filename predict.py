@@ -25,5 +25,6 @@ if submitted:
         satuan=satuan
     )
 
-    st.success(f"💰 Predicted Revenue: **Rp {pred:,.0f}**")
+    formatted_pred = f"{pred:,.0f}".replace(",", ".")
+    st.success(f"💰 Predicted Revenue: **Rp {formatted_pred}**")
 
