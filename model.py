@@ -3,10 +3,12 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
+from pathlib import Path
 
 # ---------- Load & train model ONCE ----------
-
-df = pd.read_excel("GEO_data.xlsx")
+BASE_DIR = Path(__file__).resolve().parent.parent
+FILE_PATH = BASE_DIR / "GEO_data.xlsx"
+df = pd.read_excel(FILE_PATH)
 
 # Clean numeric columns
 for col in ["QTY", "HARGA", "JUMLAH"]:
