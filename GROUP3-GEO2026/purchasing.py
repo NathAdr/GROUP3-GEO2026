@@ -100,16 +100,59 @@ with tabs[4]:
 
     if menu == "Bahan Baku Utama (Kain)": 
       BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Nama Supplier.csv"
+      FILE_PATH = BASE_DIR / "Supplier Utama.csv"
     
       data = pd.read_csv(FILE_PATH)
       st.write(data)
 
-
-
     elif menu == "Bahan Pendukung (Perintilan, Kancing, Benang, Retsleting, RIB DLL)": 
-      st.write("Inventory Taking Order content here")
-  
+      BASE_DIR = Path(__file__).resolve().parent.parent
+      FILE_PATH = BASE_DIR / "Supplier Pendukung.csv"
+    
+      data = pd.read_csv(FILE_PATH)
+      st.write(data)
+
+    elif menu == "Jasa Bordir": 
+      BASE_DIR = Path(__file__).resolve().parent.parent
+      FILE_PATH = BASE_DIR / "Jasa Bordir.csv"
+    
+      data = pd.read_csv(FILE_PATH)
+      st.write(data)
+
+    elif menu == "Jasa Printing": 
+      BASE_DIR = Path(__file__).resolve().parent.parent
+      FILE_PATH = BASE_DIR / "Jasa Printing.csv"
+    
+      data = pd.read_csv(FILE_PATH)
+      st.write(data)
+
+    elif menu == "Jasa DTF Sablon": 
+      BASE_DIR = Path(__file__).resolve().parent.parent
+      FILE_PATH = BASE_DIR / "Jasa DTF Sablon.csv"
+    
+      data = pd.read_csv(FILE_PATH)
+      st.write(data)
+    
+    elif menu == "Jasa Sublim": 
+      BASE_DIR = Path(__file__).resolve().parent.parent
+      FILE_PATH = BASE_DIR / "Jasa Sublim.csv"
+    
+      data = pd.read_csv(FILE_PATH)
+      st.write(data)
+    
+    elif menu == "Jasa Distribusi": 
+      BASE_DIR = Path(__file__).resolve().parent.parent
+      FILE_PATH = BASE_DIR / "Jasa Distribusi.csv"
+    
+      data = pd.read_csv(FILE_PATH)
+      st.write(data)
+    
+    elif menu == "ATK": 
+      BASE_DIR = Path(__file__).resolve().parent.parent
+      FILE_PATH = BASE_DIR / "ATK.csv"
+    
+      data = pd.read_csv(FILE_PATH)
+      st.write(data)
 
     
     
