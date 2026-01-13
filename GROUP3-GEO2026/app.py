@@ -1,4 +1,6 @@
 import streamlit as st
+import os
+import base64
 
 st.set_page_config(
     page_title="Cooperative Management",
@@ -6,6 +8,44 @@ st.set_page_config(
     layout="wide"
 )
 
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+
+logo_path = os.path.join(parent_dir, "img", "digikop.png") 
+
+if os.path.exists(logo_path):
+    img_base64 = get_base64_of_bin_file(logo_path)
+    
+    st.markdown(
+        f"""
+        <style>
+        /* Target area navigasi dan tambahkan gambar sebelumnya */
+        [data-testid="stSidebarNav"]::before {{
+            content: "";
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+            width: 200px;  /* ATUR LEBAR LOGO DISINI */
+            height: 120px; /* ATUR TINGGI LOGO DISINI */
+            background-image: url("data:image/png;base64,{img_base64}");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+else:
+    st.warning("Gambar logo tidak ditemukan. Cek path/nama file.")
+
+# --- 4. CSS UNTUK SIDEBAR SIZE ---
 st.markdown("""
 <style>
 section[data-testid="stSidebar"] {
@@ -22,6 +62,8 @@ div[data-testid="stSidebarResizeHandle"] {
 </style>
 """, unsafe_allow_html=True)
 
+
+# --- NAVIGATION ---
 home_page = st.Page("home.py", title="Home", icon=":material/home:")
 predict_page = st.Page("predict.py", title="Prediction", icon=":material/trending_up:")
 purchasing_page = st.Page("purchasing.py", title="Puchasing", icon=":material/shopping_cart:")
@@ -52,7 +94,6 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-
 st.sidebar.markdown("""
 <div style="display:flex; justify-content:center; gap:12px; align-items:center;">
     <img src="https://serviceomni.petra.ac.id/resources/9ad247aa-98ac-475a-a2b5-d50903a2a128" width="60">
@@ -72,6 +113,5 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
 pg.run()
