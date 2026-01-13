@@ -27,10 +27,7 @@ tabs = st.tabs([
     "Work Order",
     "Material Slip",
     "Process Stages",
-    "Finished Goods Slip",
-    "Production Cost Allocation",
-    "Production Schedule",
-    "Work Order History"
+    "Finished Goods Slip"
 ])
 
 with tabs[0]:
@@ -49,14 +46,3 @@ with tabs[3]:
     st.subheader("Finished Goods Slip")
     st.write("Finished Goods Slip content here")
 
-with tabs[4]:
-    st.subheader("Production Cost Allocation")
-    st.write("Production Cost Allocation content here")
-
-with tabs[5]:
-    st.subheader("Production Schedule")
-    st.write("Production Schedule content here")
-
-with tabs[6]:
-    st.subheader("Work Order History")
-    st.write("Work Order History content here")
