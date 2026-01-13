@@ -1,4 +1,6 @@
 import streamlit as st
+from pathlib import Path
+import pandas as pd
 
 st.markdown("""
 <style>
@@ -48,5 +50,41 @@ with tabs[3]:
     st.write("Sales Receipt content here")
 
 with tabs[4]:
-    st.subheader("Customer")
-    st.write("Customer content here")
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    FILE_PATH = BASE_DIR / "Customer.csv"
+    
+    data = pd.read_csv(FILE_PATH)
+    data['Balance'] = pd.to_numeric(data['Balance'], errors='coerce')
+
+    # buat copy untuk tampilan
+    data_display = data.copy()
+    data_display['Balance'] = data_display['Balance'].apply(
+        lambda x: f"Rp {x:,.0f}".replace(',', '.') if not pd.isna(x) else "-"
+    )
+
+    st.write(data_display)
+
+
+    st.subheader("Add New Customer Data")
+
+    with st.form("add_cus", clear_on_submit=True):
+        cus = st.text_input("Nama Customer")
+        number = st.text_input("Contact Info")
+        balance = st.number_input("Balance", step=1000)
+
+        submitted = st.form_submit_button("Simpan")
+
+    if submitted:
+        if cus.strip() == "":
+            st.error("Nama Customer Wajib diisi!")
+        else:
+            new_row = pd.DataFrame([[
+                cus,
+                number,
+                balance
+            ]], columns=data.columns)  
+
+            data = pd.concat([data, new_row], ignore_index=True)
+            data.to_csv(FILE_PATH, index=False)
+
+            st.rerun()
