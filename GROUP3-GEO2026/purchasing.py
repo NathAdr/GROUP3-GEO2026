@@ -28,7 +28,7 @@ div.block-container {
 """, unsafe_allow_html=True)
 
 tabs = st.tabs([
-    "Pre-Order",
+    "Purchase Order",
     "Receive Item",
     "Purchase Invoice",
     "Purchase Payment",
