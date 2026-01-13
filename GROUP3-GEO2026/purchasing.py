@@ -1,31 +1,65 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 from pathlib import Path
 from datetime import date
 
+st.set_page_config(layout="wide")
+
 st.markdown("""
 <style>
-div[data-testid="stTabs"] {
-    width: 100%;
-}
-
-div[data-testid="stTabs"] > div > div {
-    display: flex;
-}
-
 button[data-testid="stTab"] {
     flex: 1;
     justify-content: center;
     font-size: 16px;
     font-weight: 600;
 }
-
-div.block-container {
-    padding-top: 1rem;
-}
+div.block-container { padding-top: 1rem; }
 </style>
 """, unsafe_allow_html=True)
+
+def parse_rupiah(text):
+    if not text:
+        return 0
+    try:
+        cleaned = (
+            text.replace("Rp", "")
+                .replace("rp", "")
+                .replace(".", "")
+                .replace(",", "")
+                .strip()
+        )
+        return int(cleaned)
+    except ValueError:
+        return None
+
+
+def load_and_display_data(file_path, is_po=True):
+    if Path(file_path).exists():
+        df = pd.read_csv(file_path)
+        df.columns = df.columns.str.strip()
+
+        if is_po and "Harga" in df.columns:
+            df["Harga"] = pd.to_numeric(df["Harga"], errors="coerce").fillna(0)
+
+            st.dataframe(
+                df,
+                column_config={
+                    "Harga": st.column_config.NumberColumn(
+                        "Harga",
+                        format="Rp %,.0f",
+                        help="Harga dalam Rupiah"
+                    )
+                },
+                hide_index=True,
+                use_container_width=True
+            )
+        else:
+            st.dataframe(df, hide_index=True, use_container_width=True)
+
+        return df
+
+    return pd.DataFrame()
+
 
 tabs = st.tabs([
     "Purchase Order",
@@ -36,579 +70,115 @@ tabs = st.tabs([
 ])
 
 with tabs[0]:
-    menu = st.selectbox(
-       "", ["Bahan Baku Utama (Kain)", "Bahan Pendukung (Perintilan, Kancing, Benang, Retsleting, RIB DLL)", 
-            "Jasa Bordir", "Jasa Printing", "Jasa DTF Sablon", "Jasa Sublim", "Jasa Distribusi", "ATK"], key="preorder"
-       ) 
+    po_menu = st.selectbox(
+        "Kategori PO",
+        [
+            "Bahan Baku Utama (Kain)",
+            "Bahan Pendukung",
+            "Jasa Bordir",
+            "Jasa Printing",
+            "Jasa DTF Sablon",
+            "Jasa Sublim",
+            "Jasa Distribusi",
+            "ATK"
+        ],
+        key="sb_po"
+    )
 
-    if menu == "Bahan Baku Utama (Kain)": 
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
+    po_files = {
+        "Bahan Baku Utama (Kain)": "DATA SUPPLIER KAIN.csv",
+        "Bahan Pendukung": "DATA SUPPLIER KAIN - Bahan Baku Pendukung PO.csv",
+        "Jasa Bordir": "DATA SUPPLIER KAIN - Jasa Bordir PO.csv",
+        "Jasa Printing": "DATA SUPPLIER KAIN - Jasa Printing PO.csv",
+        "Jasa DTF Sablon": "DATA SUPPLIER KAIN - Jasa DTF Sablon PO.csv",
+        "Jasa Sublim": "DATA SUPPLIER KAIN - Jasa Sublim PO.csv",
+        "Jasa Distribusi": "DATA SUPPLIER KAIN - Jasa Distribusi PO.csv",
+        "ATK": "DATA SUPPLIER KAIN - ATK PO.csv"
+    }
 
-        st.divider()
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    path_po = BASE_DIR / po_files[po_menu]
+    data_po = load_and_display_data(path_po, is_po=True)
 
-        st.subheader("Add New Purchase Order Data")
+    st.divider()
 
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
+    with st.form("form_po", clear_on_submit=True):
+        col1, col2 = st.columns(2)
 
-            submitted = st.form_submit_button("Simpan")
+        tanggal = col1.date_input("Tanggal", date.today())
+        supplier = col1.text_input("Supplier")
+        item = col2.text_input("Item")
+        qty = col2.text_input("Qty")
 
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
+        harga_text = st.text_input(
+            "Harga (Rp)",
+            placeholder="Contoh: Rp 150.000 atau 150000"
+        )
+
+        ket = st.text_area("Keterangan")
+
+        if st.form_submit_button("Simpan PO"):
+            harga = parse_rupiah(harga_text)
+
+            if not supplier or not item:
+                st.error("Supplier dan Item harus diisi")
+            elif harga is None:
+                st.error("Format harga tidak valid")
             else:
-                new_row = pd.DataFrame([[
+                new_row = [
                     tanggal.strftime("%Y-%m-%d"),
                     supplier,
                     item,
                     qty,
                     harga,
-                    keterangan
-                ]], columns=data.columns)  
+                    ket
+                ]
 
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
+                new_data = pd.DataFrame([new_row], columns=data_po.columns)
+                pd.concat([data_po, new_data], ignore_index=True).to_csv(path_po, index=False)
                 st.rerun()
-
-    elif menu == "Bahan Pendukung (Perintilan, Kancing, Benang, Retsleting, RIB DLL)":
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN - Bahan Baku Pendukung PO.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
-
-        st.divider()
-
-        st.subheader("Add New Purchase Order Data")
-
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
-
-            submitted = st.form_submit_button("Simpan")
-
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
-            else:
-                new_row = pd.DataFrame([[
-                    tanggal.strftime("%Y-%m-%d"),
-                    supplier,
-                    item,
-                    qty,
-                    harga,
-                    keterangan
-                ]], columns=data.columns)  
-
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
-                st.rerun()
-    
-    elif menu == "Jasa Bordir":
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN - Jasa Bordir PO.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
-
-        st.divider()
-
-        st.subheader("Add New Purchase Order Data")
-
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
-
-            submitted = st.form_submit_button("Simpan")
-
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
-            else:
-                new_row = pd.DataFrame([[
-                    tanggal.strftime("%Y-%m-%d"),
-                    supplier,
-                    item,
-                    qty,
-                    harga,
-                    keterangan
-                ]], columns=data.columns)  
-
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
-                st.rerun()
-    
-    elif menu == "Jasa Printing":
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN - Jasa Printing PO.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
-
-        st.divider()
-
-        st.subheader("Add New Purchase Order Data")
-
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
-
-            submitted = st.form_submit_button("Simpan")
-
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
-            else:
-                new_row = pd.DataFrame([[
-                    tanggal.strftime("%Y-%m-%d"),
-                    supplier,
-                    item,
-                    qty,
-                    harga,
-                    keterangan
-                ]], columns=data.columns)  
-
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
-                st.rerun()
-    
-    elif menu == "Jasa DTF Sablon":
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN - Jasa DTF Sablon PO.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
-
-        st.divider()
-
-        st.subheader("Add New Purchase Order Data")
-
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
-
-            submitted = st.form_submit_button("Simpan")
-
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
-            else:
-                new_row = pd.DataFrame([[
-                    tanggal.strftime("%Y-%m-%d"),
-                    supplier,
-                    item,
-                    qty,
-                    harga,
-                    keterangan
-                ]], columns=data.columns)  
-
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
-                st.rerun()
-    
-    elif menu == "Jasa Sublim":
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN - Jasa Sublim PO.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
-
-        st.divider()
-
-        st.subheader("Add New Purchase Order Data")
-
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
-
-            submitted = st.form_submit_button("Simpan")
-
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
-            else:
-                new_row = pd.DataFrame([[
-                    tanggal.strftime("%Y-%m-%d"),
-                    supplier,
-                    item,
-                    qty,
-                    harga,
-                    keterangan
-                ]], columns=data.columns)  
-
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
-                st.rerun()
-    
-    elif menu == "Jasa Distribusi":
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN - Jasa Distribusi PO.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
-
-        st.divider()
-
-        st.subheader("Add New Purchase Order Data")
-
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
-
-            submitted = st.form_submit_button("Simpan")
-
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
-            else:
-                new_row = pd.DataFrame([[
-                    tanggal.strftime("%Y-%m-%d"),
-                    supplier,
-                    item,
-                    qty,
-                    harga,
-                    keterangan
-                ]], columns=data.columns)  
-
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
-                st.rerun()
-    
-    elif menu == "ATK":
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        FILE_PATH = BASE_DIR / "DATA SUPPLIER KAIN - ATK PO.csv"
-    
-        data = pd.read_csv(FILE_PATH)
-        st.write(data)
-
-        st.divider()
-
-        st.subheader("Add New Purchase Order Data")
-
-        with st.form("add_purchase", clear_on_submit=True):
-            tanggal = st.date_input("Tanggal Pembelian", date.today())
-            supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-            item = st.text_input("Item")
-            qty = st.text_input("Qty")
-            harga = st.number_input("Harga", min_value=0, step=1000)
-            keterangan = st.text_area("Keterangan")
-
-            submitted = st.form_submit_button("Simpan")
-
-        if submitted:
-            if supplier.strip() == "" or item.strip() == "":
-                st.error("Nama Supplier dan Item wajib diisi!")
-            else:
-                new_row = pd.DataFrame([[
-                    tanggal.strftime("%Y-%m-%d"),
-                    supplier,
-                    item,
-                    qty,
-                    harga,
-                    keterangan
-                ]], columns=data.columns)  
-
-                data = pd.concat([data, new_row], ignore_index=True)
-                data.to_csv(FILE_PATH, index=False)
-
-                st.rerun()
-with tabs[1]:
-    st.subheader("Receive Item")
-    st.write("Receive Item content here")
-
-with tabs[2]:
-    st.subheader("Purchase Invoice")
-    st.write("Purchase Invoice content here")
-
-with tabs[3]:
-    st.subheader("Purchase Payment")
-    st.write("Purchase Payment content here")
 
 with tabs[4]:
-    menu = st.selectbox(
-       "", ["Bahan Baku Utama (Kain)", "Bahan Pendukung (Perintilan, Kancing, Benang, Retsleting, RIB DLL)", 
-            "Jasa Bordir", "Jasa Printing", "Jasa DTF Sablon", "Jasa Sublim", "Jasa Distribusi", "ATK"], key="supplier"
-       ) 
+    sup_menu = st.selectbox(
+        "Kategori Supplier",
+        [
+            "Bahan Baku Utama (Kain)",
+            "Bahan Pendukung",
+            "Jasa Bordir",
+            "Jasa Printing",
+            "Jasa DTF Sablon",
+            "Jasa Sublim",
+            "Jasa Distribusi",
+            "ATK"
+        ],
+        key="sb_sup"
+    )
 
-    
-    if menu == "Bahan Baku Utama (Kain)": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Supplier Utama.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
+    sup_files = {
+        "Bahan Baku Utama (Kain)": "Supplier Utama.csv",
+        "Bahan Pendukung": "Supplier Pendukung.csv",
+        "Jasa Bordir": "Jasa Bordir.csv",
+        "Jasa Printing": "Jasa Printing.csv",
+        "Jasa DTF Sablon": "Jasa DTF Sablon.csv",
+        "Jasa Sublim": "Jasa Sublim.csv",
+        "Jasa Distribusi": "Jasa Distribusi.csv",
+        "ATK": "ATK.csv"
+    }
 
-      st.subheader("Add New Supplier Data")
+    path_sup = BASE_DIR / sup_files[sup_menu]
+    data_sup = load_and_display_data(path_sup, is_po=False)
 
-      with st.form("add_utama", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
+    st.divider()
 
-          submitted = st.form_submit_button("Simpan")
+    with st.form("form_sup", clear_on_submit=True):
+        s_nama = st.text_input("Nama Supplier")
+        s_alamat = st.text_input("Alamat")
 
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-
-    elif menu == "Bahan Pendukung (Perintilan, Kancing, Benang, Retsleting, RIB DLL)": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Supplier Pendukung.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
-
-      st.subheader("Add New Supplier Data")
-
-      with st.form("add_sup", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
-
-          submitted = st.form_submit_button("Simpan")
-
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-
-
-    elif menu == "Jasa Bordir": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Jasa Bordir.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
-
-      st.subheader("Add New Supplier Data")
-
-      with st.form("add_bor", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
-
-          submitted = st.form_submit_button("Simpan")
-
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-    
-
-
-    elif menu == "Jasa Printing": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Jasa Printing.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
-
-      st.subheader("Add New Supplier Data")
-
-      with st.form("add_pri", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
-
-          submitted = st.form_submit_button("Simpan")
-
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-
-    
-    elif menu == "Jasa DTF Sablon": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Jasa DTF Sablon.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
-
-      st.subheader("Add New Supplier Data")
-
-      with st.form("add_sab", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
-
-          submitted = st.form_submit_button("Simpan")
-
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-    
-
-    elif menu == "Jasa Sublim": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Jasa Sublim.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
-
-      st.subheader("Add New Supplier Data")
-
-      with st.form("add_sub", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
-
-          submitted = st.form_submit_button("Simpan")
-
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-    
-
-    elif menu == "Jasa Distribusi": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "Jasa Distribusi.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
-
-      st.subheader("Add New Supplier Data")
-
-      with st.form("add_dis", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
-
-          submitted = st.form_submit_button("Simpan")
-
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-    
-
-    elif menu == "ATK": 
-      BASE_DIR = Path(__file__).resolve().parent.parent
-      FILE_PATH = BASE_DIR / "ATK.csv"
-    
-      data = pd.read_csv(FILE_PATH)
-      st.write(data)
-
-      st.subheader("Add New Supplier Data")
-
-      with st.form("add_atk", clear_on_submit=True):
-          supplier = st.text_input("Nama Supplier & Penyedia Jasa")
-          address = st.text_input("Alamat")
-
-          submitted = st.form_submit_button("Simpan")
-
-      if submitted:
-          if supplier.strip() == "" or address.strip() == "":
-              st.error("Nama Supplier dan Alamat wajib diisi!")
-          else:
-              new_row = pd.DataFrame([[
-                  supplier,
-                  address
-              ]], columns=data.columns)  
-
-              data = pd.concat([data, new_row], ignore_index=True)
-              data.to_csv(FILE_PATH, index=False)
-
-              st.rerun()
-
-    
-    
+        if st.form_submit_button("Simpan Supplier"):
+            if s_nama:
+                new_sup = pd.DataFrame(
+                    [[s_nama, s_alamat]],
+                    columns=data_sup.columns
+                )
+                pd.concat([data_sup, new_sup], ignore_index=True).to_csv(path_sup, index=False)
+                st.rerun()
