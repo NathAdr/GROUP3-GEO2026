@@ -108,7 +108,7 @@ SPESIALIS_OPTIONS = [
 with tabs[0]:
     st.markdown(
     "<div style='font-size:13px; color:#9ca3af;'>Current module</div>"
-    "<div style='font-size:20px; font-weight:600;'>💰 Revenue Predictiony</div>",
+    "<div style='font-size:20px; font-weight:600;'>💰 Revenue Prediction</div>",
     unsafe_allow_html=True
 )
     
