@@ -1,0 +1,115 @@
+﻿No.,Nama,NIK,Alamat,Kecamatan,Usia,Kerapian,Ketepatan Waktu,Quantity,Komitmen,Spesialis,Status Keluarga Miskin
+1,Abdul Rozak,3578171812650002,Sidomulyo II-C/5,Kenjeran,61,TRUE,TRUE,TRUE,TRUE,Semua,Miskin Non Ekstrem
+2,Afiah,3578115706720006,Sidodadi 3 No. 1,Simokerto,54,TRUE,TRUE,TRUE,TRUE,Semua,
+3,Alfiyah,3578165811710007,Wonokusumo Bhakti GG 2/28,Semampir,55,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+4,Anis Syayidah Ulfa,3578115909790004,Jl. Pogot VI/26,Kenjeran,47,FALSE,FALSE,TRUE,TRUE,Semua,Non Miskin
+5,Aprilianti,3578174604970001,Bulak Banteng Wetan XI/31,Kenjeran,29,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+6,Bambang Lukistianto,3578111111640002,Kalilom Lor Indah Sedap Malam 14,Kenjeran,62,TRUE,TRUE,FALSE,TRUE,,Miskin Non Ekstrem
+7,Dewi Ambar Arifiati,3578046805820010,Deles buntu 1/5 Surabaya,Sukolilo,44,TRUE,TRUE,FALSE,TRUE,,Non Miskin
+8,Dewi Munir Indratanti,3578155407790001,Tambak Asri 29/83,Krembangan,47,FALSE,TRUE,TRUE,TRUE,Semua,Non Miskin
+9,Dewi Munir Indriyati,3578155609770001,Tambak Asri 29/83,Krembangan,49,FALSE,TRUE,FALSE,TRUE,,Miskin Non Ekstrem
+10,Diani Nanik Lestari,3578056401710003,Simolawang 2/44b,Simokerto,55,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+11,Dyah Dwikora H.,3578035012640001,Bakung 2b/ 34B,Rungkut,61,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+12,Endah Susanti,3578115810770004,Granting Barat 105,Simokerto,49,FALSE,TRUE,FALSE,TRUE,,Miskin Non Ekstrem
+13,Ernawati Ningsih,3578175610820001,Pogot 9 b/3 a,Kenjeran,44,TRUE,TRUE,FALSE,TRUE,,Non Miskin
+14,Evi Dharmawati,357815402750004,Krembangan Jaya Sel 2C/8,Semampir,51,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+15,Faridah,3578174406740004,Bulak Banteng Kidul 5/6,Kenjeran,52,FALSE,TRUE,FALSE,TRUE,,Miskin Non Ekstrem
+16,Fatimatul Zaroh,3578274610810001,Simorejo Sari B 13 No. 9A,Sukomanunggal,45,FALSE,TRUE,FALSE,TRUE,,Non Miskin
+17,G. Kusnariati,3578176709830002,Tambak wedi baru 13A dalam buntu no. 3,Kenjeran,43,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+18,Galuh Zahroh,3578165009550000,Krembangan bakti 14/11,Krembangan,71,FALSE,FALSE,TRUE,FALSE,,Non Miskin
+19,Hadak Mitharani,3578135710820004,Jl. Medokan Semampir Indah Gg. 2 No. 1,Sukolilo,44,TRUE,TRUE,TRUE,TRUE,,Non Miskin
+20,Hadirto,3578162008610004,Sidotopo Jaya 8/2,Semampir,65,FALSE,FALSE,FALSE,FALSE,,Non Miskin
+21,Hanafi,3526142106710001,Karang Tembok 1/21-B,Semampir,55,TRUE,TRUE,TRUE,TRUE,Seragam,
+22,Hj. Umi Saroh,3578036112560001,Kaliwaru GG Masjid No. 14,Rungkut,70,FALSE,TRUE,FALSE,TRUE,,Non Miskin
+23,I'anatus Sholiha,3578295208730001,Sukolilo Larangan 3/23,Bulak,53,TRUE,TRUE,TRUE,TRUE,Seragam,Non Miskin
+24,Ina Indayati,3578066801630001,Petemon 1 / 77 - H,Sawahan,63,TRUE,TRUE,FALSE,TRUE,Semua,Pramiskin
+25,Indah Handayani,3578267112800003,Jl. Kalisari Damen No. 55-A,Mulyorejo,46,TRUE,TRUE,TRUE,TRUE,Semua,Miskin Ekstrem
+26,Isnaini,3578095511750001,Gebang Wetan 1 No. 10,Sukolilo,51,FALSE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+27,Istiqomah,3578166206800004,Jl. Mrutu Kalianyar,Semampir,41,TRUE,TRUE,TRUE,TRUE,,Non Miskin
+28,Katri,3578176101650001,Tambak Wedi Masjid 6/10,Kenjeran,61,FALSE,TRUE,FALSE,TRUE,,Pramiskin
+29,Khofifah,3508086205880003,Tanah Merah Utara 1 No 12,Kenjeran,38,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+30,Khusnul Khotimah,3578295403720001,Sukolilo Larangan 9/120,Bulak,54,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+31,Kikin Sukinah,3578117112680002,Gembong 3/76,Simokerto,58,FALSE,FALSE,TRUE,FALSE,Seragam,Non Miskin
+32,Kuswati,3578064601730000,Pakis 2 / 41B,Sawahan,53,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+33,Lailatul Wijayanti,3578175004860003,Dukuh Bulak Banteng 46,Kenjeran,40,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+34,Latifah,3527065304840003,Donorejo 68,Simokerto,42,FALSE,TRUE,FALSE,TRUE,,Miskin Non Ekstrem
+35,Lilis Sofiatain Nisa,3578096906830003,Jl. Gebang Wetan No.32,Sukolilo,43,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+36,Luluk Ratnawati,3578154412820001,Kalianak Timur BLK 2-D,Krembangan,44,FALSE,TRUE,TRUE,TRUE,,Non Miskin
+37,M. Ali Mukhaidari,3578110104800005,Simokerto 3/56,Simokerto,46,TRUE,TRUE,TRUE,TRUE,Semua,Miskin Non Ekstrem
+38,M. Prasanti Rahmawatun,3578176711710002,Tanah Merah Sayur 7/19,Kenjeran,55,TRUE,TRUE,FALSE,TRUE,,Non Miskin
+39,Mahlul Khamim,3527061103800006,Wonokusumo Damai 4/23,Semampir,46,TRUE,TRUE,TRUE,TRUE,Semua,
+40,Maria Andriyana Leni ,3578174602740003,Tambak Wedi Komplek KMS 21B,Kenjeran,52,FALSE,TRUE,FALSE,TRUE,,Non Miskin
+41,Maruf,3578160301790005,Tenggumung Karya Lor 5 No. 10,Semampir,47,TRUE,TRUE,TRUE,TRUE,Semua,
+42,Maskur,3578100107810017,Kapas Lor 1-C/16,Tambaksari,45,TRUE,TRUE,TRUE,TRUE,Semua,
+43,Maslacha,3578177006570232,Tanah Merah Utara 1/1-A,Kenjeran,69,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+44,Mian ,3578123006650099,Randu Barat 1-B/38,Kenjeran,61,TRUE,TRUE,FALSE,TRUE,Semua,
+45,Mudawamah,3578295101790001,Larangan sukolilo 2 no 26 RT 01 RW 01,Bulak,47,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+46,Mufti Yuana Endah S.,3578036806720002,Kaliwaru I/16,Rungkut,54,FALSE,FALSE,FALSE,FALSE,,Non Miskin
+47,Mujianah,3524096303770002,Jl. Kalisari I NO 69,Mulyorejo,49,TRUE,TRUE,FALSE,TRUE,,Miskin Non Ekstrem
+48,Mujiono,3578272212710001,Jl. Putat Gede Barat II/52,Sukomanunggal,55,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+49,Mujiyati,3578274307830001,Simorejo Sari B 12 No. 2,Sukomanunggal,43,TRUE,TRUE,TRUE,TRUE,Semua,Pramiskin
+50,Muneri,3576170806660001,Tanah Merah Utara 1/Tanah Kali Kedinding,Kenjeran,60,TRUE,TRUE,TRUE,TRUE,Seragam,
+51,Murdiana,3578066508810002,Pakis Gunung 1-B/31,Sawahan,45,TRUE,FALSE,TRUE,TRUE,Semua,Non Miskin
+52,Muslicha,3578144808550001,Tambak Wedi Indah Barat 2 D/ 16,Kenjeran,71,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+53,Nanik Fadilah,3578177105790004,Kedinding Lor 2/136,Kenjeran,47,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+54,Neni Kuntarti,3578165607820004,Wonosari 7/10,Semampir,44,TRUE,TRUE,FALSE,TRUE,,Non Miskin
+55,Nina Ishariani,3578086204770000,Mojoklanggru Lor 56,Gubeng,49,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+56,Nina Sulistyowati,3578115703870001,Rusun Sumbo Blok E/101,Simokerto,39,TRUE,TRUE,FALSE,TRUE,Semua,
+57,Nunik Nurul Maslahah,3578096212760005,Kejawan Gebang II/20,Sukolilo,50,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+58,Nur Aida,3578174309650001,Tambak Wedi Tengah Timur 1A/3A,Kenjeran,61,TRUE,TRUE,FALSE,TRUE,,Miskin Non Ekstrem
+59,Nur Farichah,3578034808690004,Medokan ayu tambak gg 11,Rungkut,57,FALSE,FALSE,FALSE,FALSE,,Non Miskin
+60,Nur Hidayati,3524265010800004,Wonosari Lor Baru 3/32,Semampir,46,FALSE,TRUE,FALSE,TRUE,,Non Miskin
+61,Nurmahmuda,3578265212810001,JL. Tempurejo No. 9/8,Mulyorejo,45,FALSE,TRUE,FALSE,TRUE,,Non Miskin
+62,Nurhayati,3578174910560003,Tanah Merah Sayur 3 Buntu No. 34,Kenjeran,70,TRUE,TRUE,FALSE,TRUE,Semua,Pramiskin
+63,Nurhayati,3578125202820002,Rusun Sumbo Blok B/310,Simokerto,44,TRUE,TRUE,TRUE,TRUE,,
+64,Nurul Fadilah,3578116010790004,Tambak Segaran 1/47,Tambak Sari,47,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+65,Nurul Hidayati,3578104709860002,Kalimas Barat 2/23,Pabean Cantian,40,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+66,Nurul Latifah,3578167006750047,Tenggumung Wetan/Merpati 14,Semampir,51,TRUE,TRUE,FALSE,TRUE,,Non Miskin
+67,Oemi Baidah,3578174712650002,Tanah Merah Indah Sayur 3 no 8,Kenjeran,61,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+68,Ririn Rinantari,3578035205720001,Tambak Medokan Ayu Kav. 11/4B,Rungkut,54,FALSE,TRUE,FALSE,TRUE,,
+69,Rita,3578275111630002,Simorejo Sari B 13 No. 11A,Sukomanunggal,63,FALSE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+70,Rochmawati,357810530980002,Jl. Labak Jaya Utara 5A/3,Kenjeran,48,FALSE,TRUE,FALSE,FALSE,,Non Miskin
+71,Rusmini,3578177006630311,Tanah Merah Sayur 5/36,Kenjeran,63,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+72,Saptorini,3578126103700001,Tambak Gringsing Baru 3/3/3,Pabean Cantian,56,TRUE,TRUE,FALSE,TRUE,Seragam,Pramiskin
+73,Saptorini,3578126103700001,Tambak Gringsing Baru 3/3/3,Pabean Cantian,56,TRUE,TRUE,FALSE,TRUE,Seragam,
+74,Saudah,3578174701730002,Kedinding Lor Gg. Anggrek 34,Kenjeran,53,FALSE,FALSE,FALSE,FALSE,,Non Miskin
+75,Shieny Suwito,3578264507840003,Jl. Kalisari Timur 62,Mulyorejo,42,TRUE,TRUE,TRUE,TRUE,Semua,Miskin Non Ekstrem
+76,Siri,3526131078110331,Kenjeran 4E/2,Simokerto,42,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+77,Siti Alfiyah,3578167012710003,Bulak Sari 3/4,Semampir,55,FALSE,FALSE,FALSE,FALSE,,Pramiskin
+78,Siti choiriyah,3506154107790042,Gebang lor jl Kanoman 2 no 102 d,Sukolilo,47,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+79,Siti Fatimah,3578036809720002,Kaliwaru 1/10,Rungkut,54,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+80,Siti Juhariyah,3578174411880003,DK. Bulak Banteng Suropati 5-D/46,Kenjeran,38,TRUE,TRUE,TRUE,TRUE,Semua,Miskin Non Ekstrem
+81,Siti Muamanah,3578264501850004,Jl. Tempurejo No. 9/19,Mulyorejo,41,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+82,Siti Muslimah Nuraini,3578167006650416,Jl. Tenggumung Karya Lor 4c,Semampir,61,FALSE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+83,Siti Zaenab,3578116504840004,Sidodadi 10 14A,Simokerto,42,FALSE,TRUE,FALSE,TRUE,Seragam,Miskin Non Ekstrem
+84,Soeprijatin,3578174510660002,Tanah Merah Sayur 7 No. 29,Kenjeran,60,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+85,Sri Mulyani,3578117006730034,Sidoyoso 2/3/2,Simokerto,53,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+86,Sri Purwati,3578086308670002,Mojoklanggru Lor 78-C,Gubeng,59,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+87,Sri Windu Utami,3578266010750001,Manyar Sabrangan 5/38E,Mulyorejo,51,TRUE,TRUE,FALSE,TRUE,Seragam,Pramiskin
+88,Suaibah,3578106010910002,Kapas Madya VI/131 ,Tambak Sari,35,TRUE,TRUE,FALSE,TRUE,Seragam,
+89,Sudartik,3578104056610002,Kapas Madya 2-E-1/23,Tambak Sari,65,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+90,Sugiati,3578175010730007,Kapas Lor Wetan 4 No. 7,Tambak Sari,53,TRUE,TRUE,FALSE,TRUE,Seragam,
+91,Suharning,3578065708750004,Pakis 2/37-G,Sawahan,51,TRUE,TRUE,FALSE,TRUE,Seragam,Pramiskin
+92,Suharsih,3578174105790001,Pogot 10/54,Kenjeran,47,TRUE,TRUE,TRUE,TRUE,Semua,Pramiskin
+93,Suhartini,3578175805750001,Kedung Mangu 4D Buntu/6,Kenjeran,50,TRUE,TRUE,FALSE,TRUE,Seragam,Pramiskin
+94,Suliha,3527084107752192,Tambak Wedi Baru 14/94A,Kenjeran,46,TRUE,TRUE,TRUE,TRUE,Seragam,Non Miskin
+95,Sumarti,3578176001740001,Kedinding Lor Kamboja No. 92,Kenjeran,52,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+96,Sumarti,357804404720008,Rangkah 6/29,Kenjeran,54,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+97,Tachtimul Khusna,3578165609840003,Wonosari Lor Baru 2/1,Semampir,42,TRUE,TRUE,FALSE,TRUE,,Non Miskin
+98,Titik Suparmi,3578106101780001,Rangkah 6/29,Kenjeran,48,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+99,Tri Cahyani,3578175801850002,Bulak Banteng Sekolahan 7-A/22,Kenjeran,41,TRUE,TRUE,TRUE,TRUE,Seragam,Miskin Non Ekstrem
+100,Tri Nofiati,3578164311790002,Tenggumung Baru Selatan No. 71 F,Semampir,47,TRUE,FALSE,FALSE,TRUE,Seragam,Miskin Non Ekstrem
+101,Tri Ratnasari,3578084912820003,Asempayung No 39,Sukolilo,44,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+102,Ubaidillah Andy,3578161709770002,Bulak Banteng Madya 11/12,Kenjeran,49,TRUE,TRUE,TRUE,TRUE,Seragam,Miskin Non Ekstrem
+103,Umi Chanifah,3578036708700001,Rungkut Kidul 3/48,Rungkut,56,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+104,Urifah Chasanah,3578165311700003,Sidotopo Jaya 9/1,Semampir,56,FALSE,TRUE,TRUE,TRUE,Seragam,Non Miskin
+105,Warianti,3516156201690001,Jl. Sidotopo Wetan Mulia GG 3 NO 56,Kenjeran,57,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+106,Wariyanti,3516156201690001,Sidotopo Wetan Mulia Gg. 3/56,Kenjeran,57,TRUE,TRUE,FALSE,TRUE,Seragam,
+107,Waryadi,3878101912710002,Ploso 9B-9 ,Tambak Sari,55,TRUE,TRUE,FALSE,TRUE,Seragam,
+108,Watik,3578266011700003,Jl. Labansari 5-BLK,Mulyorejo,56,FALSE,TRUE,FALSE,TRUE,,Non Miskin
+109,Winarty,3578267006700004,Kalisari 62,Mulyorejo,56,TRUE,TRUE,TRUE,TRUE,Seragam,Non Miskin
+110,Wiwik Yuliani,3578174111650004,Kedinding Lor GG Mawar No. 18,Kenjeran,61,TRUE,TRUE,FALSE,TRUE,Semua,Non Miskin
+111,Yuniati,357816606740001,Tenggumung Karya Gg IB/1,Semampir,52,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+112,Jamilah,3578175606750009,"Takal, Kenjeran",Kenjeran,51,TRUE,TRUE,TRUE,TRUE,Semua,Non Miskin
+113,Lilik S.,3578086510810002,"Petung sewu, Gubeng",Gubeng,45,TRUE,TRUE,FALSE,TRUE,Seragam,Non Miskin
+114,Nur Faricha,3578034808690004,Medokan ayu tambak gg 11,Rungkut,57,TRUE,TRUE,TRUE,TRUE,Seragam,Non Miskin
