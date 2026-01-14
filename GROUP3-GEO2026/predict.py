@@ -205,6 +205,12 @@ with tabs[1]:
         plt.xticks(rotation=45)
         st.pyplot(fig3)
 
+        if 'Forecasted QTY' in future_df.columns:
+            future_df['Forecasted QTY'] = future_df['Forecasted QTY'].round(0).astype(int)
+
+        if 'Model Output' in combined_df.columns:
+            combined_df['Model Output'] = combined_df['Model Output'].round(0)
+            
         st.write("### Detail Data Forecast (Masa Depan)")
         col_a, col_b = st.columns([1, 2])
         with col_a:
